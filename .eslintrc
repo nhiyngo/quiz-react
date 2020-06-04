@@ -2,12 +2,8 @@
   "extends": [
     "wesbos"
   ],
-  "parser": "babel-eslint",
   "rules": {
-    "no-console": "off",
-    "no-unused-vars": ["error", {
-      "args": "none"
-    }],
+    "no-console": 2,
     "prettier/prettier": [
       "error",
       {
