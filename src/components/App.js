@@ -4,31 +4,52 @@ import Questionnaire from './Questionnaire';
 
 const App = () => {
   const [questions, setQuestions] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState(undefined);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [score, setScore] = useState(0);
+  const [gameEnd, setGameEnd] = useState(false);
 
-      useEffect(() => {
+  useEffect(() => {
     (async () => {
-      const response = await axios.get('https://opentdb.com/api.php?amount=10&category=14&type=multiple');
+      const response = await axios.get(
+        'https://opentdb.com/api.php?amount=10&category=14&difficulty=easy&type=multiple'
+      );
 
       setQuestions(response.data.results);
-      setCurrentQuestion(response.data.results[0]);
     })();
-  }, []);
+  }, [currentIndex]);
 
-  const handleAnswer = (answer) => {
+  const handleAnswer = answer => {
+    const newIndex = currentIndex + 1;
+    setCurrentIndex(newIndex);
     // check for the answer
+    if (answer === questions[currentIndex].correct_answer) {
+      // increase the score
+      setScore(score + 1);
+    }
 
-    // show next question
-
-    // update score if correct
-
+    if (newIndex >= questions.length) {
+      setGameEnd(true);
+    }
   };
 
-  return questions.length > 0 ? (
+  return gameEnd ? (
+    <div className="text-center bg-white p-4 rounded bg-teal-900">
+      <h4 className="text-5xl font-bold uppercase text-white w-full">Congratulations!</h4>
+      <div className="bg-white m-4 p-6">
+        <p>You have completed the quiz.</p>
+        <p>
+          You got: {score} out of {questions.length} questions right
+        </p>
+        <button type="submit">Restart</button>
+      </div>
+    </div>
+  ) : questions.length > 0 ? (
     <div className="container">
-    {currentQuestion && (
-      <Questionnaire data={currentQuestion} handleAnswer={handleAnswer} />
-    )}
+      <Questionnaire
+        data={questions[currentIndex]}
+        handleAnswer={handleAnswer}
+        currentIndex={`${currentIndex + 1}/${questions.length}`}
+      />
     </div>
   ) : (
     <h2 className="text-2xl">Loading questions...</h2>
