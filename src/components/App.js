@@ -30,9 +30,8 @@ const App = () => {
     setShowAnswers(true);
   };
 
-  const showNextQuestion = () => {
+  const handleNextQuestion = () => {
     setShowAnswers(false);
-    // const newIndex = currentIndex + 1;
     setCurrentIndex(currentIndex + 1);
   };
 
@@ -55,7 +54,7 @@ const App = () => {
           handleAnswer={handleAnswer}
           currentIndex={`${currentIndex + 1}/${questions.length}`}
           showAnswers={showAnswers}
-          showNextQuestion={showNextQuestion}
+          handleNextQuestion={handleNextQuestion}
         />
       )}
     </div>

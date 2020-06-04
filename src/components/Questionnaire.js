@@ -4,13 +4,13 @@ const Questionnaire = ({
   handleAnswer,
   currentIndex,
   showAnswers,
-  showNextQuestion,
+  handleNextQuestion,
   data: { question, correct_answer, incorrect_answers },
 }) => {
   const shuffledAnswers = [correct_answer, ...incorrect_answers].sort(() => Math.random() - 0.5);
 
   return (
-    <div className="text-center">
+    <div className="flex flex-col">
       <h3>{`Question ${currentIndex}`}</h3>
       <div className="p-4 border-b-2 border-solid border-gray-400">
         <h2 className="text-3xl text-center" dangerouslySetInnerHTML={{ __html: question }} />
@@ -39,13 +39,15 @@ const Questionnaire = ({
           );
         })}
       </div>
-      <button
-        onClick={() => showNextQuestion()}
-        className="bg-teal-900 text-white font-bold uppercase rounded px-10 py-4 mt-10"
-        type="submit"
-      >
-        Next Question
-      </button>
+      {showAnswers && (
+        <button
+          onClick={() => handleNextQuestion()}
+          className="bg-teal-900 text-white font-bold uppercase rounded shadow px-20 py-4 mt-10"
+          type="submit"
+        >
+          Next Question
+        </button>
+      )}
     </div>
   );
 };
