@@ -6,6 +6,7 @@ const App = () => {
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
+  const [showAnswers, setShowAnswers] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -18,13 +19,21 @@ const App = () => {
   }, []);
 
   const handleAnswer = answer => {
-    const newIndex = currentIndex + 1;
-    setCurrentIndex(newIndex);
-    // check for the answer
-    if (answer === questions[currentIndex].correct_answer) {
-      // increase the score
-      setScore(score + 1);
+    // prevent double clicking answers
+    if (!showAnswers) {
+      // check for the answer
+      if (answer === questions[currentIndex].correct_answer) {
+        // increase the score
+        setScore(score + 1);
+      }
     }
+    setShowAnswers(true);
+  };
+
+  const showNextQuestion = () => {
+    setShowAnswers(false);
+    // const newIndex = currentIndex + 1;
+    setCurrentIndex(currentIndex + 1);
   };
 
   return questions.length > 0 ? (
@@ -45,6 +54,8 @@ const App = () => {
           data={questions[currentIndex]}
           handleAnswer={handleAnswer}
           currentIndex={`${currentIndex + 1}/${questions.length}`}
+          showAnswers={showAnswers}
+          showNextQuestion={showNextQuestion}
         />
       )}
     </div>
