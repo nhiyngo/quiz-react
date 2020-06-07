@@ -5,9 +5,8 @@ const Questionnaire = ({
   currentIndex,
   showAnswers,
   handleNextQuestion,
-  data: { question, correct_answer, incorrect_answers },
+  data: { question, correct_answer, answers },
 }) => {
-  const shuffledAnswers = [correct_answer, ...incorrect_answers].sort(() => Math.random() - 0.5);
 
   return (
     <div className="flex flex-col">
@@ -16,7 +15,7 @@ const Questionnaire = ({
         <h2 className="text-3xl text-center" dangerouslySetInnerHTML={{ __html: question }} />
       </div>
       <div className="grid grid-cols-2 gap-6 mt-8">
-        {shuffledAnswers.map(answer => {
+        {answers.map(answer => {
           const borderColor = showAnswers
             ? answer === correct_answer
               ? 'sm:border-teal-700'

@@ -14,7 +14,12 @@ const App = () => {
         'https://opentdb.com/api.php?amount=10&category=14&difficulty=easy&type=multiple'
       );
 
-      setQuestions(response.data.results);
+      const questions = response.data.results.map(question => ({
+        ...question,
+        answers: [question.correct_answer, ...question.incorrect_answers].sort(() => Math.random() - 0.5),
+      }));
+
+      setQuestions(questions);
     })();
   }, []);
 
