@@ -40,17 +40,29 @@ const App = () => {
     setCurrentIndex(currentIndex + 1);
   };
 
+  const handleRestart = () => {
+    setQuestions([]);
+    // setScore(0);
+  };
+
   return questions.length > 0 ? (
-    <div className="container">
+    <div className="quiz-container">
       {currentIndex >= questions.length ? (
-        <div className="text-center bg-white p-4 rounded bg-teal-900">
-          <h4 className="text-5xl font-bold uppercase text-white w-full">Congratulations!</h4>
-          <div className="bg-white m-4 p-6">
+        <div className="text-center bg-white rounded-lg overflow-hidden bg-teal-900">
+          <h4 className="text-3xl uppercase text-white py-4">Congratulations!</h4>
+          <div className="bg-white p-6 text-black font-normal text-lg">
             <p>You have completed the quiz.</p>
             <p>
-              You got: {score} out of {questions.length} questions right
+              You got {score} out of {questions.length} questions right.
             </p>
-            <button type="submit">Restart</button>
+            <button
+              button
+              onClick={handleRestart}
+              className="bg-teal-900 text-white font-bold uppercase rounded shadow px-10 py-3 mt-6 focus:outline-none"
+              type="submit"
+            >
+              Restart
+            </button>
           </div>
         </div>
       ) : (
