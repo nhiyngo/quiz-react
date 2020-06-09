@@ -85,5 +85,7 @@ export default App;
 // useEffect(()=> {
 //   fetch('https://opentdb.com/api.php?amount=10&category=11')
 //     .then((res) => res.json())
-//     .then((data) => console.log(data));
+//     .then((data) => {
+//        setQuestions(data.results);
+//      });
 // },[]);

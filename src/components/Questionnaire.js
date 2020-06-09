@@ -18,7 +18,7 @@ const Questionnaire = ({
           ? answer === correct_answer
             ? 'sm:border-teal-700'
             : 'sm:border-red-500'
-          : 'sm:border-teal-300';
+          : 'sm:border-teal-500';
 
         const textColor = showAnswers
           ? answer === correct_answer
